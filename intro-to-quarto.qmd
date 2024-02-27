@@ -1,0 +1,37 @@
+---
+title: "Intro to Quarto"
+format: html
+bibliography: references.bib
+---
+
+# Title
+
+**trial bold**
+
+-   item 2
+-   item 3
+    -   sub1
+    -   sub2
+
+The text i am trying to write
+
+Heres the slack [link](https://app.slack.com/client/T02H16V0L/C06FF5C9J3Y)
+
+```{r}
+paste("Hello", "World!")
+2*9
+x<-4*8
+heights<-c(5.2,6,5.7)
+all<-x*heights
+all
+```
+
+Here's a link to some model output: [@zamora2022]
+
+| Thing   | Color | Number |
+|---------|-------|--------|
+| Thing 1 | red   | 3      |
+| Thing 3 | blue  | 4      |
+| Thing 4 | pink  | 21     |
+
+: Table 1. testing

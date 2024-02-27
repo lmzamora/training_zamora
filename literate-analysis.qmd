@@ -1,0 +1,63 @@
+---
+title: "Mini Literate Analysis"
+format: html
+---
+
+##Intro
+
+### About the data
+
+North Pole Environmental Observatory Bottle Chemistry data. Data can be found [here](https://arcticdata.io/catalog/view/doi:10.18739/A25T3FZ8X).
+
+### Setup
+
+load libraries
+```{r}
+library(readr)
+```
+
+### Read data
+```{r}
+bg_chem <- read_csv("data/BGchem2008data.csv")
+```
+
+Exploring dat
+```{r}
+colnames(bg_chem)
+summary(bg_chem) #summary stats
+unique(bg_chem$Date)
+```
+
+
+## Analysis
+
+### Calculate summary stats
+```{r}
+no3<-mean(bg_chem$NO3)
+no2<-mean(bg_chem$NO2)
+nh4<-mean(bg_chem$NH4)
+po4<-mean(bg_chem$P)
+
+```
+
+
+### Calculate mean Redfield ratio
+
+```{r}
+ratio<- (no3+no2+nh4)/po4
+```
+
+
+### Plot ratio
+```{r}
+plot(bg_chem$P, (bg_chem$NO3+bg_chem$NO2+bg_chem$NH4))
+```
+
+
+## Conclusions
+
+<!--This is a comment -->
+
+The Redfield ratio is `r round(ratio)`. 
+
+<!--Then it automatically updates value if you add new data. -->
