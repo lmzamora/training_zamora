@@ -1,6 +1,17 @@
 ---
-title: "GitHub Pages Example"
+title: "Arctic Data Center Data Science Training"
 format: html
 ---
 
-Hello World!
+## Course Lessons
+
+- Introduction to Literate Analysis Using Quarto 
+- Cleaning and Wrangling data
+- Data Visualization
+- Functions and packages
+
+## Course Practice Session
+
+- Practice I: Cleaning and Wrnagling and Data Viz
+- Practice II: Writing functions
+
