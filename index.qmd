@@ -5,8 +5,8 @@ format: html
 
 ## Course Lessons
 
-- Introduction to Literate Analysis Using Quarto 
-- Cleaning and Wrangling data
+- Introduction to [Literate Analysis](literate-analysis.html) Using Quarto 
+- [Cleaning and Wrangling data](tidying.html)
 - Data Visualization
 - Functions and packages
 
