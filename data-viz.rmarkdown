@@ -3,7 +3,9 @@ title: "Intro to Data Viz"
 format: html
 ---
 
+
 ##Set up
+
 ```{r}
 library(readr)
 library(dplyr)
@@ -15,11 +17,15 @@ library(leaflet) # interactive maps
 library(DT) # interactive tables
 ```
 
+
 ## Read Data
+
 ```{r}
 escape_raw <- read_csv("https://knb.ecoinformatics.org/knb/d1/mn/v2/object/urn%3Auuid%3Af119a05b-bbe7-4aea-93c6-85434dcb1c5e")
 ```
+
 Exploring data
+
 ```{r}
 #!eval: false
 
@@ -37,15 +43,19 @@ unique(escape_raw$Species)
 ```
 
 
+
 ##Cleaning data
 
 Cleaning column names
+
 ```{r}
 escape <- escape_raw %>% 
     janitor::clean_names()
 ```
 
+
 Calculate the Annual escapements by species and sasap regions
+
 ```{r}
 annual_esc <- escape %>% 
   separate(sample_date, c("year","month", "day"), sep="-") %>% 
@@ -58,7 +68,9 @@ unique(annual_esc$species)
 head(annual_esc)
 ```
 
+
 ##Plotting data
+
 ```{r}
 ggplot(data = annual_esc,
        mapping = aes(x=species, y = escapement)) +
@@ -67,7 +79,9 @@ ggplot(data = annual_esc,
 ```
 
 
+
 Making bars blue
+
 
 ```{r}
 ggplot(data = annual_esc,
@@ -76,7 +90,9 @@ ggplot(data = annual_esc,
 ```
 
 
+
 Adding regions to our plot
+
 ```{r}
 ggplot(data = annual_esc,
        mapping = aes(x=species, y = escapement, fill=sasap_region)) +
@@ -84,7 +100,9 @@ ggplot(data = annual_esc,
 
 ```
 
+
 ##Create multiple plots
+
 ```{r}
 ## Subset with data from years 2000 to 2016
 
@@ -104,7 +122,9 @@ ggplot(annual_esc_2000s,
     facet_wrap( ~ sasap_region,
                 scales = "free_y")
 ```
+
 Custumizing plot
+
 ```{r}
 ggplot(annual_esc_2000s,
        aes(x = year,
@@ -124,7 +144,9 @@ ggplot(annual_esc_2000s,
 ```
 
 
+
 Saving plots
+
 ```{r}
 
 ggsave("plots/annualsalmon_esc_region.jpg", width = 8, height = 6, units = "in")
@@ -132,9 +154,11 @@ ggsave("plots/annualsalmon_esc_region.jpg", width = 8, height = 6, units = "in")
 ```
 
 
+
 ##Interactive visualizations
 
 Subset data
+
 ```{r}
 locations <- escape %>%
     distinct(location, latitude, longitude) %>%
@@ -142,13 +166,17 @@ locations <- escape %>%
 
 ```
 
+
 Using `DT` package for interactive tables
+
 ```{r}
 datatable(locations)
 
 ```
 
+
 Use the `leaflet` package to create an interactive map
+
 ```{r}
 
 leaflet(locations) %>%
