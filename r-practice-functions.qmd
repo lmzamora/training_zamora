@@ -28,10 +28,60 @@ head(species, 3)
 
 ##Load data
 ```{r}
-egg<- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A4b219711-2282-420a-b1d6-1893fe4a74a6")
-predator<- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A9ffec04c-7e2d-41dd-9e88-b6c2e8c4375e")
-nest<- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A982bd2fc-4edf-4da7-96ef-0d11b853102d")
+egg_measures<- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A4b219711-2282-420a-b1d6-1893fe4a74a6")
+predator_survey<- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A9ffec04c-7e2d-41dd-9e88-b6c2e8c4375e")
+nest_data<- read_csv("https://arcticdata.io/metacat/d1/mn/v2/object/urn%3Auuid%3A982bd2fc-4edf-4da7-96ef-0d11b853102d")
 
 
+```
+##Look at data
+```{r}
+dim(egg_measures)
+glimpse(egg_measures)
+names(egg_measures)
+
+dim(nest_data)
+glimpse(nest_data)
+names(nest_data)
+
+dim(predator_survey)
+glimpse(predator_survey)
+names(predator_survey)
+```
+
+##function to add species common name to any data frame
+
+```{r}
+
+#' Title
+#'
+#' @param df The data frame with species code included as a parameter
+#' @param species The species code and common name matchup table
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' var<-assign_species_name(egg_measures, species)
+#' var
+assign_species_name <- function(df, species){
+    return_df <- left_join(df, species, by = c("species" = "alpha_code"))
+    return(return_df)
+}
+```
+
+```{r}
+## This is one solution. 
+predator_clean <- assign_species_name(predator_survey, species) %>% 
+    select(year, site, date, common_name, count) %>% 
+    filter(!is.na(common_name))
+
+nest_location_clean <- assign_species_name(nest_data, species) %>% 
+    select(year, site, nestID, common_name, lat_corrected, long_corrected) %>% 
+    filter(!is.na(common_name))
+
+eggs_clean <- assign_species_name(egg_measures, species) %>% 
+    select(year, site, nestID, common_name, length, width) %>% 
+    filter(!is.na(common_name))
 ```
 
